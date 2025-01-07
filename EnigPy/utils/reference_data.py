@@ -2,7 +2,8 @@ import csv
 import sys
 import os
 import math
-from helper import Helper as hp
+from .helper import Helper as hp
+os.path.join(os.path.dirname(__file__), '..', '..', 'source')
 
 class ReferenceData:
     ENG_MONOGRAM_LFREQ = {'E': -2.192771506987658, 'A': -2.4655041025131603, 'R': -2.5795382598728414, 

@@ -1,11 +1,10 @@
 import random
-import math
 import sys
-sys.path.append('./enigpy/utils')
-from EnigPy.utils.ciphertext import CipherText
-from EnigPy.utils.utility import Utility as ut
-from EnigPy.utils.reference_data import ReferenceData as rd
-from copy import copy
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from utils.ciphertext import CipherText
+from utils.utility import Utility as ut
+from utils.reference_data import ReferenceData as rd
 
 ENGLISH_ALPHABET = rd.ENGLISH_ALPHABET
 
@@ -27,10 +26,7 @@ def hard_decrypt(text: str, key: str):
     return plaintext
 
 
-def metropolis_optimization(rsc_ciphertext: CipherText, iteration: int = 10000, verify: int = 6, 
-                            weights: list = [(-1, 0.09), (1, 0.06), (2, 1)], 
-                            reference_files: dict = {-1: None, 1: None, 2: None, 3: None, 4: None}):
-    def propose_mapping(key: str):
+def propose_mapping(key: str):
         key = list(key)
         max = len(ENGLISH_ALPHABET)
         a = random.randrange(max)
@@ -41,43 +37,6 @@ def metropolis_optimization(rsc_ciphertext: CipherText, iteration: int = 10000, 
         key[a] = key[b]
         key[b] = c
         return ''.join(key)
-    
-    def optimizatize(rsc_ciphertext: CipherText, iteration: int = 10000, weights: list = [(-1, 0.09), (1, 0.06), (2, 1)], 
-                     reference_files: dict = {-1: None, 1: None, 2: None, 3: None, 4: None}):
-        log_likely = ut.log_probability_function(rsc_ciphertext, weights, reference_files)
-        for i in range(iteration):
-            temp_ciphertext = copy(rsc_ciphertext)
-            temp_ciphertext.set_key(propose_mapping(temp_ciphertext.get_key()))
-
-            temp_log_likely = ut.log_probability_function(temp_ciphertext, weights, reference_files)
-
-            clipped_diff = max(min(temp_log_likely - log_likely, 700), -700)
-            acceptance_prob = min(1, math.exp(clipped_diff))
-            
-            accept = random.uniform(0, 1)
-
-            if (accept < acceptance_prob):
-                rsc_ciphertext = temp_ciphertext
-                log_likely = temp_log_likely
-
-                if ut.all_english(rsc_ciphertext):
-                    return rsc_ciphertext, log_likely / 10
-        return rsc_ciphertext, log_likely
-
-    best_ciphertext = rsc_ciphertext
-    max_likely = math.log(1e-100)
-    
-    for i in range(verify):
-        temp_ciphertext, log_likely = optimizatize(copy(rsc_ciphertext), iteration, weights, reference_files)
-        print(f"{i + 1}. {temp_ciphertext.try_decrypt()}")
-        print(f"{log_likely}")
-        if max_likely < log_likely:
-            best_ciphertext = temp_ciphertext
-            max_likely = log_likely
-
-    best_ciphertext, log_likely = optimizatize(copy(best_ciphertext), iteration, weights, reference_files)
-
-    return best_ciphertext
 
 
 def decrypt(text: str):
@@ -95,7 +54,7 @@ def decrypt(text: str):
     rsc_ciphertext = CipherText(ut.clean(text, True), ENGLISH_ALPHABET, True, hard_decrypt)
     rsc_ciphertext.set_key(gen_basic_key(rsc_ciphertext))
     
-    return metropolis_optimization(rsc_ciphertext)
+    return ut.metropolis_optimization(rsc_ciphertext)
 
 def encrypt(text: str, key: str):
     text = ut.clean(text, True)

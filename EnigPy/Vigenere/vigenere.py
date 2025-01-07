@@ -1,9 +1,11 @@
 import random
 import math
 import sys
-from EnigPy.utils.ciphertext import CipherText
-from EnigPy.utils.utility import Utility as ut
-from EnigPy.utils.reference_data import ReferenceData as rd
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from utils.ciphertext import CipherText
+from utils.utility import Utility as ut
+from utils.reference_data import ReferenceData as rd
 
 ENGLISH_ALPHABET = rd.ENGLISH_ALPHABET
 

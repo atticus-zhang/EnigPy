@@ -1,6 +1,6 @@
 import sys
-from helper import Helper as hp
-from reference_data import ReferenceData as rd
+from .helper import Helper as hp
+from .reference_data import ReferenceData as rd
 
 class NGram:
     def __init__(self, n: int, has_space: bool, ngrams: list, r_data: dict = None):

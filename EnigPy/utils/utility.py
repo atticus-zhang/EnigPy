@@ -2,10 +2,10 @@ import sys
 import math
 import random
 from typing import Callable
-from ciphertext import CipherText
-from ngram import NGram
-from helper import Helper as hp
-from reference_data import ReferenceData as rd
+from .ciphertext import CipherText
+from .ngram import NGram
+from .helper import Helper as hp
+from .reference_data import ReferenceData as rd
 from copy import copy
 
 class Utility:

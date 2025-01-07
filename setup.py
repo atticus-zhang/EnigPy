@@ -11,10 +11,7 @@ setup(
     license='MIT',
     packages=find_packages(),  # Automatically discover packages
     keywords=['Python', 'Cryptography'],
-    install_requires=[
-        "opencv-python>=4.0.0,<5.0.0",
-        "streamlit>=1.0.0,<2.0.0"
-    ],
+    install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",

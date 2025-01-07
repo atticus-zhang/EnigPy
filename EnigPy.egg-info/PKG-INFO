@@ -1,11 +1,13 @@
 Metadata-Version: 2.1
 Name: EnigPy
-Version: 0.1.1
+Version: 0.1.2
+Summary: UNKNOWN
 Home-page: https://github.com/atticus-zhang/EnigPy/tree/main/EnigPy
 Author: Atticus Zhang
 Author-email: ay9zhang@uwaterloo.ca
 License: MIT
 Keywords: Python,Cryptography
+Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
 Classifier: Programming Language :: Python :: 3.10
@@ -20,3 +22,4 @@ Classifier: Topic :: Software Development :: Libraries :: Python Modules
 License-File: LICENSE
 
 # EnigPy
+

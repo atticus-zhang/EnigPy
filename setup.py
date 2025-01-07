@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='EnigPy',
-    version='0.1.2',    
+    version='0.1.3',    
     description='',
     long_description=open('README.md').read(),
     url='https://github.com/atticus-zhang/EnigPy/tree/main/EnigPy',
@@ -10,6 +10,9 @@ setup(
     author_email='ay9zhang@uwaterloo.ca',
     license='MIT',
     packages=find_packages(),  # Automatically discover packages
+    package_data={
+        'EnigPy': ['source/*'],  # This will include all files in the 'source' directory
+    },
     keywords=['Python', 'Cryptography'],
     install_requires=[],
     classifiers=[

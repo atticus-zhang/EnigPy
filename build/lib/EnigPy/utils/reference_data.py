@@ -3,7 +3,7 @@ import sys
 import os
 import math
 from .helper import Helper as hp
-os.path.join(os.path.dirname(__file__), '..', '..', 'source')
+
 
 class ReferenceData:
     ENG_MONOGRAM_LFREQ = {'E': -2.192771506987658, 'A': -2.4655041025131603, 'R': -2.5795382598728414, 
@@ -36,7 +36,7 @@ class ReferenceData:
     
     @staticmethod
     def create_reference(path_to_text: str, n: int, accept_space: bool = False, 
-                         file_name: str = "untitled_reference.csv", path_to_folder: str = "enigpy/source/"):
+                         file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source/"):
         
         text = ReferenceData.read_text(path_to_text, accept_space)
 
@@ -50,7 +50,7 @@ class ReferenceData:
                 file.write(f"{ngram},{math.log(ngrams_occurance[ngram]/counter)}\n")
 
     @staticmethod
-    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "enigpy/source/"):
+    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source/"):
         if not os.path.exists(path_to_folder + file_name):
             print(f"Error: Reference file {path_to_folder + file_name} not found", file=sys.stderr)
             exit()

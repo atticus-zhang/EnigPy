@@ -1,7 +1,7 @@
 import csv
-import sys
-import os
 import math
+import os
+from EnigPy import __path__ as package_path
 from .helper import Helper as hp
 
 
@@ -36,13 +36,14 @@ class ReferenceData:
     
     @staticmethod
     def create_reference(path_to_text: str, n: int, accept_space: bool = False, 
-                         file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source/"):
+                         file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source"):
+        csv_file_path = os.path.join(package_path[0], path_to_folder, file_name)
         
         text = ReferenceData.read_text(path_to_text, accept_space)
 
         ngrams, counter = hp.parse(text, n)
 
-        with open(path_to_folder + file_name, 'w') as file:
+        with open(csv_file_path, 'w') as file:
             ngrams_occurance, ngrams_sorted = hp.find_occurance(ngrams, n)
 
             file.write("ngram,freq\n")
@@ -50,13 +51,11 @@ class ReferenceData:
                 file.write(f"{ngram},{math.log(ngrams_occurance[ngram]/counter)}\n")
 
     @staticmethod
-    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source/"):
-        if not os.path.exists(path_to_folder + file_name):
-            print(f"Error: Reference file {path_to_folder + file_name} not found", file=sys.stderr)
-            exit()
+    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source"):
+        csv_file_path = os.path.join(package_path[0], path_to_folder, file_name)
         
         ngram_freq = {}
-        with open(path_to_folder + file_name, 'r') as filein:
+        with open(csv_file_path, 'r') as filein:
             csv_reader = csv.DictReader(filein)
             for row in csv_reader:
                 ngram_freq[row['ngram']] = float(row['freq'])

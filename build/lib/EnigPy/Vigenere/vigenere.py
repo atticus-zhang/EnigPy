@@ -99,7 +99,7 @@ def find_key(text: str, n: int):
 
     ciphertext = CipherText(ut.clean(text, False), create_key(parsed_text, n), False, hard_decrypt)
 
-    return ut.metropolis_optimization(ciphertext, propose_mapping, 2000, 1)
+    return ut.metropolis_optimization(ciphertext, propose_mapping, 3000, 1)
 
 
 def decrypt(text: str):

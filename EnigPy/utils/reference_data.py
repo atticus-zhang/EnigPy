@@ -36,7 +36,7 @@ class ReferenceData:
     
     @staticmethod
     def create_reference(path_to_text: str, n: int, accept_space: bool = False, 
-                         file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source"):
+                         file_name: str = "untitled_reference.csv", path_to_folder: str = "source"):
         csv_file_path = os.path.join(package_path[0], path_to_folder, file_name)
         
         text = ReferenceData.read_text(path_to_text, accept_space)
@@ -51,7 +51,7 @@ class ReferenceData:
                 file.write(f"{ngram},{math.log(ngrams_occurance[ngram]/counter)}\n")
 
     @staticmethod
-    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "EnigPy/source"):
+    def read_data(file_name: str = "untitled_reference.csv", path_to_folder: str = "source"):
         csv_file_path = os.path.join(package_path[0], path_to_folder, file_name)
         
         ngram_freq = {}

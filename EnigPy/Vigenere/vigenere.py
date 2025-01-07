@@ -39,6 +39,12 @@ def find_ioc(text: str):
         return offsets
     
     def find_best_fitting_gcd(offsets):
+        if not offsets:
+            parsed_text2 = ut.parse(text, 2).get_ngrams()
+            occurance2 = count_occurances(parsed_text2)
+            offsets = find_offset(occurance2)
+            if not offsets:
+                offsets = [5]
         max_gcd = math.floor(math.sqrt(max(offsets)))
         gcd = 1
         max_fitness = 1
@@ -65,7 +71,7 @@ def find_ioc(text: str):
 
 
 def propose_mapping(key: str):
-    if random.randint(0,1):
+    if random.randint(0, 10):
         key = list(key)
         index = random.randint(0, len(key) - 1)
         key[index] = random.choice(ENGLISH_ALPHABET)
@@ -99,7 +105,14 @@ def find_key(text: str, n: int):
 
     ciphertext = CipherText(ut.clean(text, False), create_key(parsed_text, n), False, hard_decrypt)
 
-    return ut.metropolis_optimization(ciphertext, propose_mapping, 3000, 1)
+    len_text = len(text)
+
+    add_inter = math.ceil(max((200 - len_text) * 50, 0))
+
+    add_veri = math.ceil(max((200 - len_text) * 0.04, 0))
+    print(n)
+
+    return ut.metropolis_optimization(ciphertext, propose_mapping, 6000 + add_inter, 2 + add_veri, [(1, 0.05), (2, 1), (3, 50)])
 
 
 def decrypt(text: str):

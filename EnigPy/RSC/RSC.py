@@ -27,16 +27,16 @@ def hard_decrypt(text: str, key: str):
 
 
 def propose_mapping(key: str):
-        key = list(key)
-        max = len(ENGLISH_ALPHABET)
-        a = random.randrange(max)
-        b = random.randrange(max - 1)
-        if a == b:
-            b += 1
-        c = key[a]
-        key[a] = key[b]
-        key[b] = c
-        return ''.join(key)
+    key = list(key)
+    max = len(ENGLISH_ALPHABET)
+    a = random.randrange(max)
+    b = random.randrange(max - 1)
+    if a == b:
+        b += 1
+    c = key[a]
+    key[a] = key[b]
+    key[b] = c
+    return ''.join(key)
 
 
 def decrypt(text: str):
@@ -54,7 +54,7 @@ def decrypt(text: str):
     rsc_ciphertext = CipherText(ut.clean(text, True), ENGLISH_ALPHABET, True, hard_decrypt)
     rsc_ciphertext.set_key(gen_basic_key(rsc_ciphertext))
     
-    return ut.metropolis_optimization(rsc_ciphertext)
+    return ut.metropolis_optimization(rsc_ciphertext, propose_mapping)
 
 def encrypt(text: str, key: str):
     text = ut.clean(text, True)

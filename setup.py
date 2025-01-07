@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='EnigPy',
-    version='0.1.5',    
+    version='0.1.6',    
     description='',
     long_description=open('README.md').read(),
     url='https://github.com/atticus-zhang/EnigPy/tree/main/EnigPy',
